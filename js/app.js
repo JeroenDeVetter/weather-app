@@ -20,10 +20,6 @@ const getCityList = async () => {
   return data; 
 };
 
-const filterByName = name => {
-   
-}
-
 getCityList();
 const cityInput = document.getElementById("city-input");
 const weatherForm = document.getElementById("weather-form");
@@ -33,7 +29,8 @@ cityInput.addEventListener("keydown", function() {
   timer = setTimeout(() => {
     getCityList()
     .then(result => {
-       console.log(result)
+       const filtered = result.filter((name) => name.name.toLowerCase() == cityInput.value.toLowerCase().trim() );
+       console.table(filtered);
     });
  
   }, 200);
