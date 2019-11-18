@@ -1,10 +1,47 @@
+const getWeatherData = async city => {
+  const apiKey = "d02ba4169b2ac4f0d179b1e84c341147";
+  const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?id=2797657&APPID=${apiKey}`;
+
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+getWeatherData()
+
+const getCityList = async () => {
+  const response = await fetch("../data/city.list.json")
+  const data = await response.json();
+  return data; 
+};
+
+const filterByName = name => {
+   
+}
+
+getCityList();
+const cityInput = document.getElementById("city-input");
+const weatherForm = document.getElementById("weather-form");
+let timer = null;
+cityInput.addEventListener("keydown", function() {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    getCityList()
+    .then(result => {
+       console.log(result)
+    });
  
+  }, 200);
+});
 
+weatherForm.addEventListener("submit", function(e) {
+  const cityInputValue = cityInput.value;
 
-const weatherForm = document.getElementById('weather-form');
-
-weatherForm.addEventListener('submit', function(e) {
-    const cityInput = document.getElementById('city-input').value;
-    console.log(cityInput);
-    e.preventDefault();
+  console.log(cityInputValue);
+  e.preventDefault();
 });
