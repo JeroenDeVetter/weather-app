@@ -1,44 +1,47 @@
-const getWeatherData = async city => {
-  const apiKey = "d02ba4169b2ac4f0d179b1e84c341147";
-  const apiUrl = `api.openweathermap.org/data/2.5/forecast?q=${city}&mode=xml=${apiKey}`;
 
-  fetch(apiUrl)
-    .then(res => res.json())
-    .then(result => {
-      console.log(result);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-};
+const template = document.getElementById("weather-day");
+const target = document.getElementById("app");
 
-getWeatherData()
-
-const getCityList = async () => {
-  const response = await fetch("../data/city.list.json")
-  const data = await response.json();
-  return data; 
-};
-
-getCityList();
 const cityInput = document.getElementById("city-input");
 const weatherForm = document.getElementById("weather-form");
+
+
+const getWeatherData = async city => {
+  const apiKey = "d02ba4169b2ac4f0d179b1e84c341147";
+  //const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?id=2797657&APPID=${apiKey}`;
+  const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`;
+
+  const respons = await fetch(apiUrl);
+  const data = await respons.json();
+  return data;
+};
+
+
+
 let timer = null;
 cityInput.addEventListener("keydown", function() {
   clearTimeout(timer);
-  timer = setTimeout(() => {
-    getCityList()
-    .then(result => {
-       const filtered = result.filter((name) => name.name.toLowerCase() == cityInput.value.toLowerCase().trim() );
-       console.table(filtered);
-    });
- 
-  }, 200);
+  timer = setTimeout( async () => {
+const data = await getWeatherData(cityInput.value);
+renderWeather(data);
+console.log(data)    
+  }, 400);
 });
 
-weatherForm.addEventListener("submit", function(e) {
-  const cityInputValue = cityInput.value;
+const getDayFromString = (string) =>{
+  const result = "test";
+  return result
+}
 
-  console.log(cityInputValue);
-  e.preventDefault();
-});
+const renderWeather = (data) => {
+
+  const tempNode = template.content.cloneNode(true);
+  tempNode.querySelector("h1").innerText = "maandag";
+  tempNode.querySelector(".icon img").src="";
+  tempNode.querySelector(".percent_rain").innerText="";
+  tempNode.querySelector(".min_temp").innerText="";
+  tempNode.querySelector(".max_temp").innerText="";
+  target.appendChild(tempNode);
+
+};
+
