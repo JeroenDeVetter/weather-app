@@ -45,15 +45,10 @@ const weekDays = ["zondag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zate
 weekDays.forEach((weekDay)=>{
 
   const filtered = data.list.filter((item)=> item.weekday == weekDay);
+  if(filtered.length > 0)
   dayList.push(filtered);
+
 });
-
-const filtered = dayList.filter(function (el) {
-  el.length > 0
-});
-
-dayList.pop(); // works but probably not on other days than monday...
-
 
 return dayList;
 };
