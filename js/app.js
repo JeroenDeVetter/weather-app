@@ -40,12 +40,14 @@ data.list.forEach(element => {
   element.weekday = weekDay
 });
 
-const weekDays = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
+const weekDays = ["zondag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "maandag"];
 
 weekDays.forEach((weekDay)=>{
 
   const filtered = data.list.filter((item)=> item.weekday == weekDay);
+  if(filtered.length > 0)
   dayList.push(filtered);
+
 });
 
 return dayList;
@@ -58,11 +60,9 @@ return dayList;
 
 const renderWeather = (days) => {
 
-  console.table(days);
   
   days.forEach((day)=>{
 
-    console.log(day[0].main ,"jkhgfgdfk");
 
     let max = day[0].main.temp_max;
     let min = day[0].main.temp_min;
