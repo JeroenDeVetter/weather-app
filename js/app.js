@@ -19,21 +19,70 @@ const getWeatherData = async city => {
 
 
 let timer = null;
-cityInput.addEventListener("keydown", function() {
+cityInput.addEventListener("input", function() {
   clearTimeout(timer);
   timer = setTimeout( async () => {
 const data = await getWeatherData(cityInput.value);
-renderWeather(data);
-console.log(data)    
-  }, 400);
+renderWeather(transformPerDay(data));    
+  }, 300);
 });
 
 const getDayFromString = (string) =>{
-  const result = "test";
+  const date = new Date(string);
+  const result = date.getDay();
   return result
 }
 
-const renderWeather = (data) => {
+const transformPerDay = (data)=>{
+const dayList = [];
+data.list.forEach(element => {
+  const weekDay = new Date(element.dt_txt).toLocaleString('nl-BE', { weekday: 'long' });
+  element.weekday = weekDay
+});
+
+const weekDays = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
+
+weekDays.forEach((weekDay)=>{
+
+  const filtered = data.list.filter((item)=> item.weekday == weekDay);
+  dayList.push(filtered);
+});
+
+return dayList;
+};
+
+
+
+
+
+
+const renderWeather = (days) => {
+
+  console.table(days);
+  
+  days.forEach((day)=>{
+
+    console.log(day[0].main ,"jkhgfgdfk");
+
+    let max = day[0].main.temp_max;
+    let min = day[0].main.temp_min;
+
+
+    day.forEach((hour)=>{
+      if(hour.main.temp_max > max){
+        max = hour.main.temp_max;
+      }
+      if(hour.main.temp_min < min){
+        min = hour.main.temp_min;
+      } 
+    });
+
+
+    console.log(day[0].weekday + "---MAX TEMP--" + max);
+    console.log(day[0].weekday + "---MIN TEMP--" + min);
+  
+  });
+
 
   const tempNode = template.content.cloneNode(true);
   tempNode.querySelector("h1").innerText = "maandag";
