@@ -8,26 +8,32 @@
     <title>Wheather-App Sander & Jeroen</title>
   </head>
   <body>
-    <form action="/" id="weather-form" method="POST">
-      <label for="city-input">City</label>
-<input type="text" name="city" placeholder="city" id="city-input" list="suggestion" />
-    </form>
+    <label for="city-input">City</label>
+    <input
+      type="text"
+      name="city"
+      placeholder="city"
+      id="city-input"
+      list="suggestion"
+    />
+    <button name="submit" id="run">Result</button>
+
     <template id="weather-day">
-        <h1>Maandag</h1>
-        <div class="icon">
-          <img src="" alt="">
-        </div>
-        <p class="percent_rain">30% chance rain</p>
-        <p class="max_temp">23°C</p>
-        <p class="min_temp">15°C</p>
-      </template>
-    <div id="app">
-     
-    </div>
-
-
-
-
+     <div id="background" class="card">
+      <h1>Maandag</h1>
+      <div class="icon">
+        <img src="" alt="" />
+      </div>
+      <p class="description"></p>
+      <p class="percent_cloudDek">30% chance rain</p>
+      <p class="max_temp">23°C</p>
+      <p class="min_temp">15°C</p>
+      <p class="pressure"></p>
+      <p class="wind-speed"></p>
+      <p class="wind-dir"></p>
+     </div>
+    </template>
+    <div id="app"></div>
 
     <script src="js/app.js"></script>
   </body>
