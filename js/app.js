@@ -6,7 +6,7 @@ const weatherForm = document.getElementById("weather-form");
 
 const getWeatherData = async city => {
   const apiKey = "d02ba4169b2ac4f0d179b1e84c341147";
-  const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`;
 
   const respons = await fetch(apiUrl);
   const data = await respons.json();
