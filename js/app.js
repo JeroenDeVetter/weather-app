@@ -66,7 +66,7 @@ const transformPerDay = data => {
 };
 
 const renderWeather = days => {
-  target.innerHTML="";
+  target.querySelectorAll('*').forEach(n => n.remove());
   console.table(days);
   days.forEach(day => {
     let max = day[0].main.temp_max;
