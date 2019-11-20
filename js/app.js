@@ -14,8 +14,9 @@ const getWeatherData = async city => {
 };
 
 document.getElementById("run").addEventListener("click", async function() {
-  const data = await getWeatherData(cityInput.value);
-  renderWeather(transformPerDay(data));
+    const data = await getWeatherData(cityInput.value);
+    if(data.cod=="200") renderWeather(transformPerDay(data));
+    if(data.cod=="404") console.log("display city not found message");
 });
 
 let timer = null;
@@ -65,6 +66,7 @@ const transformPerDay = data => {
 };
 
 const renderWeather = days => {
+  target.querySelectorAll('*').forEach(n => n.remove());
   console.table(days);
   days.forEach(day => {
     let max = day[0].main.temp_max;
